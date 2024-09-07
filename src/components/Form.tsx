@@ -2,11 +2,16 @@ import React from 'react'
 import Input from './Input'
 import Link from 'next/link'
 import CustomButton from './Button'
+import { LinkedIn, Instagram, Facebook, YouTube } from '@mui/icons-material'
 
 interface FormField {
   label: string
   type?: string
   placeholder?: string
+  name: string
+  value?: string
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  error?: string
 }
 
 interface FormProps {
@@ -16,6 +21,7 @@ interface FormProps {
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
   title?: string
   redirectUrl: string
+  loading?: boolean
 }
 
 const Form: React.FC<FormProps> = ({
@@ -24,18 +30,25 @@ const Form: React.FC<FormProps> = ({
   onSubmit,
   title,
   redirectUrl,
+  submitButtonText,
+  loading = false,
 }) => {
   return (
     <form onSubmit={onSubmit} className="mt-4">
       {fields.map((field, index) => (
         <div key={index} className="flex items-center mb-4">
           <Input
+            name={field.name}
+            onChange={field.onChange}
+            value={field.value}
             label={field.label}
             type={field.type}
             placeholder={field.placeholder}
+            error={field.error}
           />
         </div>
       ))}
+
       {showForgotPassword && (
         <div className="flex justify-between items-center mb-4">
           <Link href={redirectUrl} legacyBehavior>
@@ -45,7 +58,86 @@ const Form: React.FC<FormProps> = ({
           </Link>
         </div>
       )}
-      <CustomButton title="Iniciar sessão" />
+
+      <div className="flex justify-center mt-6">
+        <CustomButton
+          loading={loading}
+          type="submit"
+          title={submitButtonText}
+          className="w-full max-w-md p-3 text-white font-bold bg-gradient-to-r from-teal-400 to-green-400 hover:from-teal-500 hover:to-green-500 transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl "
+        />
+      </div>
+
+      <div className="flex justify-center items-center mt-8 space-x-4">
+        <a
+          href="https://www.linkedin.com/company/viveooficial/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <LinkedIn
+            sx={{
+              fontSize: 25,
+              color: '#004D40',
+              '&:hover': {
+                color: '#00796B',
+                transform: 'scale(1.1)',
+                transition: 'transform 0.2s',
+              },
+            }}
+          />
+        </a>
+        <a
+          href="https://www.instagram.com/viveo.oficial/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Instagram
+            sx={{
+              fontSize: 25,
+              color: '#004D40',
+              '&:hover': {
+                color: '#00796B',
+                transform: 'scale(1.1)',
+                transition: 'transform 0.2s',
+              },
+            }}
+          />
+        </a>
+        <a
+          href="https://www.facebook.com/viveo.saude"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Facebook
+            sx={{
+              fontSize: 25,
+              color: '#004D40',
+              '&:hover': {
+                color: '#00796B',
+                transform: 'scale(1.1)',
+                transition: 'transform 0.2s',
+              },
+            }}
+          />
+        </a>
+        <a
+          href="https://www.youtube.com/c/ViveoSA"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <YouTube
+            sx={{
+              fontSize: 25,
+              color: '#004D40',
+              '&:hover': {
+                color: '#00796B',
+                transform: 'scale(1.1)',
+                transition: 'transform 0.2s',
+              },
+            }}
+          />
+        </a>
+      </div>
     </form>
   )
 }

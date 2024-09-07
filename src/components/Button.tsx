@@ -1,41 +1,43 @@
 import React from 'react'
-import { Button } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
 
 interface ButtonProps {
   title: string
   redirectUrl?: string
   className?: string
+  onClick?: () => void
+  type?: 'button' | 'submit' | 'reset'
+  loading?: boolean
 }
 
 const CustomButton: React.FC<ButtonProps> = ({
   title,
   redirectUrl,
   className,
+  onClick,
+  type = 'button',
+  loading = false,
 }) => {
   return (
     <Button
-      href={redirectUrl}
+      onClick={onClick}
+      href={redirectUrl || undefined}
+      type={type}
       variant="contained"
       className={className}
       sx={{
-        fontSize: '0.75rem',
-        fontWeight: 'normal',
+        width: '250px',
+        fontSize: '0.95rem',
+        fontWeight: 'bold',
         textTransform: 'none',
-        borderRadius: '0',
         fontFamily: 'Inter, sans-serif',
         boxShadow: 'none',
         backgroundColor: '#6EE1DC',
         color: '#0F4B55',
         padding: '12px',
-        '&:hover': {
-          boxShadow: 'none',
-          backgroundColor: '#0F4B55',
-          color: '#6EE1DC',
-          transition: 'all 0.5s ease-in-out',
-        },
       }}
     >
-      {title}
+      {loading ? <CircularProgress size={24} color="inherit" /> : title}
     </Button>
   )
 }
