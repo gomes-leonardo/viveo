@@ -3,17 +3,27 @@
 import CustomButton from '@/components/Button'
 import Form from '@/components/Form'
 import { useForm } from '@/hooks/useForm'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const Login = () => {
+  const [loading, setLoading] = useState(false)
   const { values, errors, handleChange, validate } = useForm({
     email: '',
     password: '',
   })
+  const router = useRouter()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (validate()) {
-      console.log('Formulário válido, enviando dados:', values)
+      setLoading(true)
+
+      setTimeout(() => {
+        setLoading(false)
+        router.push('/profile')
+      }, 2000)
+      
     } else {
       console.log('Formulário inválido')
     }
@@ -23,7 +33,7 @@ const Login = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 sm:p-8">
       <div className="bg-white rounded-2xl shadow-2xl flex flex-col sm:flex-row w-full max-w-4xl">
         <div className="relative w-full sm:w-7/12 p-4 sm:p-10 flex flex-col items-center justify-center min-h-[400px] sm:min-h-[500px] bg-white">
-          <div className="absolute top-4 sm:top-8 left-4 text-lg sm:text-xl font-semibold text-teal-600">
+          <div className="absolute top-4 sm:top-1 left-4 text-lg sm:text-xl font-semibold text-teal-600">
             <span className="text-teal-500">Vi</span>
             <span className="text-secondary-default">veo</span>
           </div>
@@ -57,6 +67,7 @@ const Login = () => {
             submitButtonText="Iniciar sessão"
             redirectUrl="/login"
             onSubmit={handleSubmit}
+              loading={loading}
           />
         </div>
 
