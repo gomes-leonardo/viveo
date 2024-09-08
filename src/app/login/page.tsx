@@ -18,7 +18,7 @@ const Login = () => {
   const router = useRouter()
 
   useEffect(() => {
-    document.title = 'Viveo • Login'
+    // document.title = 'Viveo • Login'
     const isLoggedIn = sessionStorage.getItem('isLoggedIn')
 
     if (isLoggedIn) {
@@ -107,7 +107,7 @@ const Login = () => {
               onRememberMeChange={handleRememberMeChange}
               rememberMe={rememberMe}
               submitButtonText="Iniciar sessão"
-              redirectUrl="/login"
+              redirectUrlOnSubmit="/login"
               onSubmit={handleSubmit}
               loading={loading}
             />

@@ -87,7 +87,7 @@ const Profile = () => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get('https://randomuser.me/api/')
-      document.title = `Viveo • Ficha de ${response.data.results[0].name.first}`
+      // document.title = `Viveo • Ficha de ${response.data.results[0].name.first}`
       setUserData(response.data.results[0])
       setLoading(false)
       setNextLoading(false)

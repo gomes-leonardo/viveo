@@ -22,7 +22,7 @@ interface FormProps {
   submitButtonText: string
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
   title?: string
-  redirectUrl: string
+  redirectUrlOnSubmit: string
   loading?: boolean
   rememberMe?: boolean
   onRememberMeChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -33,7 +33,7 @@ const Form: React.FC<FormProps> = ({
   rememberPasswordButton = false,
   onSubmit,
   title,
-  redirectUrl,
+  redirectUrlOnSubmit,
   submitButtonText,
   loading = false,
   rememberMe = false,
@@ -81,7 +81,7 @@ const Form: React.FC<FormProps> = ({
             }}
           />
 
-          <Link href={redirectUrl} legacyBehavior>
+          <Link href={redirectUrlOnSubmit} legacyBehavior>
             <a href="#" className="text-sm text-secondary-default font-bold">
               {title}
             </a>

@@ -2,7 +2,7 @@
 
 import Form from '@/components/Form'
 import { useForm } from '@/hooks/useForm'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Snackbar, Alert } from '@mui/material'
 
@@ -20,9 +20,9 @@ const Register = () => {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    document.title = 'Viveo • Cada'
-  }, [])
+  // useEffect(() => {
+  //   document.title = 'Viveo • Cada'
+  // }, [])
 
   const handleConfirmPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -103,7 +103,7 @@ const Register = () => {
             ]}
             submitButtonText="Cadastrar-se"
             onSubmit={handleSubmit}
-            redirectUrl=""
+            redirectUrlOnSubmit="/login"
             loading={loading}
           />
 
