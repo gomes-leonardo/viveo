@@ -1,4 +1,3 @@
-
 Painel de Prontuário - Viveo
 Este projeto é um painel de prontuário desenvolvido para a Viveo, com autenticação de login e gerenciamento de dados fictícios de pacientes. O objetivo desta aplicação é fornecer uma interface simples e funcional para visualização de informações de pacientes, como vacinas, medicações e consultas, integrando dados reais e fictícios.
 
@@ -30,3 +29,29 @@ React.js: Biblioteca para criação de interfaces dinâmicas e componentes reuti
 Material-UI (MUI): Biblioteca de componentes UI para estilização e responsividade.
 Hooks Customizados: Implementação de hooks para validação de formulários e manipulação do estado da aplicação.
 RandomUser API: API externa para geração de dados fictícios de pacientes.
+Como Rodar a Aplicação
+Siga os passos abaixo para rodar a aplicação localmente:
+
+Clone o repositório:
+
+bash
+Copiar código
+git clone https://github.com/seu-usuario/painel-prontuario-viveo.git
+Acesse o diretório do projeto:
+
+bash
+Copiar código
+cd painel-prontuario-viveo
+Instale as dependências:
+
+bash
+Copiar código
+npm install
+Inicie o servidor de desenvolvimento:
+
+bash
+Copiar código
+npm run dev
+Acesse a aplicação no navegador:
+
+Abra o navegador e vá até http://localhost:3000.
