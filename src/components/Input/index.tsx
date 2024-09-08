@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import {
   TextField,
   Typography,
@@ -10,16 +11,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import EmailIcon from '@mui/icons-material/Email'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 
-interface InputProps {
-  name: string
-  placeholder?: string
-  value?: string
-  label?: string
-  type?: string
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  error?: string
-  autocomplete?: string
-}
+import { InputProps } from './types'
+import { textFieldStyle, typographyStyle } from './styles'
 
 const Input: React.FC<InputProps> = ({
   name,
@@ -29,7 +22,6 @@ const Input: React.FC<InputProps> = ({
   value,
   type,
   error,
-  autocomplete,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -40,7 +32,6 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="w-full">
       <TextField
-        autoComplete={autocomplete}
         name={name}
         label={label}
         value={value}
@@ -73,49 +64,10 @@ const Input: React.FC<InputProps> = ({
               </InputAdornment>
             ) : null,
         }}
-        sx={{
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: error ? 'red' : 'transparent',
-            },
-            '&:hover fieldset': {
-              borderColor: 'transparent',
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: '#38b2ac',
-            },
-            '& .MuiInputAdornment-root': {
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-            },
-          },
-          '& .MuiInputLabel-root': {
-            color: '#4A5568',
-          },
-          '& .MuiInputLabel-root.Mui-focused': {
-            color: '#38b2ac',
-          },
-          backgroundColor: '#f3f4f6',
-          borderRadius: '4px',
-          width: '350px',
-          '@media (max-width: 600px)': {
-            width: '100%',
-          },
-        }}
+        sx={() => textFieldStyle(error)}
       />
       {error && (
-        <Typography
-          variant="caption"
-          sx={{
-            color: 'red',
-            marginTop: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            fontSize: '14px',
-            fontWeight: 500,
-          }}
-        >
+        <Typography variant="caption" sx={typographyStyle}>
           <ErrorOutlineIcon sx={{ fontSize: '16px', marginRight: '4px' }} />{' '}
           {error}
         </Typography>

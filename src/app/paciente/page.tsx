@@ -1,78 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Skeleton, IconButton, Tooltip } from '@mui/material'
-import CustomButton from '@/components/Button'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import axios from 'axios'
+import { Skeleton, IconButton, Tooltip } from '@mui/material'
 import GetAppIcon from '@mui/icons-material/GetApp'
 import LogoutIcon from '@mui/icons-material/Logout'
-
-const getRandomDate = () => {
-  const currentDate = new Date()
-  const pastYear = new Date().setFullYear(currentDate.getFullYear() - 1)
-  const randomDate = new Date(
-    pastYear + Math.random() * (currentDate.getTime() - pastYear),
-  )
-  return randomDate.toLocaleDateString()
-}
-
-const getRandomMedication = () => {
-  const medications = [
-    'Paracetamol',
-    'Ibuprofeno',
-    'Amoxicilina',
-    'Azitromicina',
-    'Cetirizina',
-    'Dipirona',
-    'Omeprazol',
-  ]
-  const randomIndex = Math.floor(Math.random() * medications.length)
-  return medications[randomIndex]
-}
-
-const getRandomVaccines = () => {
-  const vaccines = [
-    'COVID-19',
-    'Tétano',
-    'Hepatite B',
-    'Influenza',
-    'Febre Amarela',
-    'Sarampo',
-  ]
-  const vaccineStatuses = vaccines.map((vaccine) => {
-    const status = Math.random() > 0.5 ? 'Completa' : 'Incompleta'
-    return `${vaccine}: ${status}`
-  })
-  return vaccineStatuses.join(', ')
-}
-
-const exportToCSV = (userData: any) => {
-  const csvData = [
-    ['Nome', `${userData.name.first} ${userData.name.last}`],
-    ['E-mail', userData.email],
-    ['Localização', `${userData.location.city}, ${userData.location.country}`],
-    ['Telefone', userData.phone],
-    ['Última Consulta', getRandomDate()],
-    ['Vacinas', getRandomVaccines()],
-    ['Medicação Atual', getRandomMedication()],
-  ]
-
-  const csvContent =
-    'data:text/csv;charset=utf-8,' + csvData.map((e) => e.join(',')).join('\n')
-  const encodedUri = encodeURI(csvContent)
-  const link = document.createElement('a')
-  link.setAttribute('href', encodedUri)
-  link.setAttribute('download', 'user_data.csv')
-  document.body.appendChild(link)
-  link.click()
-}
+import CustomButton from '@/components/Button'
+import {
+  exportToCSV,
+  getRandomDate,
+  getRandomMedication,
+  getRandomVaccines,
+} from '@/utils/patient'
 
 const Profile = () => {
   const [userData, setUserData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [nextLoading, setNextLoading] = useState(false)
+  const [authVerifying, setAuthVerifying] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
@@ -80,14 +27,17 @@ const Profile = () => {
     const isLoggedInLocalStorage = localStorage.getItem('isLoggedIn')
 
     if (!isLoggedInSessionStorage && !isLoggedInLocalStorage) {
+      setAuthVerifying(false)
       router.push('/login')
+    } else {
+      setAuthVerifying(false)
     }
   }, [router])
 
   const fetchUserData = async () => {
     try {
       const response = await axios.get('https://randomuser.me/api/')
-      // document.title = `Viveo • Ficha de ${response.data.results[0].name.first}`
+      document.title = `Viveo • Ficha de ${response.data.results[0].name.first}`
       setUserData(response.data.results[0])
       setLoading(false)
       setNextLoading(false)
@@ -99,8 +49,10 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    fetchUserData()
-  }, [])
+    if (!authVerifying) {
+      fetchUserData()
+    }
+  }, [authVerifying])
 
   const handleNextUser = () => {
     setNextLoading(true)
@@ -108,10 +60,18 @@ const Profile = () => {
   }
 
   const handleLogout = () => {
-    sessionStorage.removeItem('isLoggedIn') // Session é um armazenamento de sessão que funciona apenas para a aba aberta
-    localStorage.removeItem('isLoggedIn') // Local é um armazenamento fixo que funciona para todas as abas do mesmo navegador
+    sessionStorage.removeItem('isLoggedIn')
+    localStorage.removeItem('isLoggedIn')
     localStorage.removeItem('email')
     router.push('/login')
+  }
+
+  if (authVerifying || loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-gray-100 p-4">
+        <Skeleton variant="rectangular" width="100%" height={400} />
+      </div>
+    )
   }
 
   return (
@@ -136,7 +96,7 @@ const Profile = () => {
         </Tooltip>
 
         <div className="flex flex-col items-center">
-          {loading || nextLoading ? (
+          {nextLoading ? (
             <>
               <Skeleton variant="circular" width={128} height={128} />
               <Skeleton

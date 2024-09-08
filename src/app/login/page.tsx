@@ -1,12 +1,15 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import CustomButton from '@/components/Button'
-import Form from '@/components/Form'
-import { useForm } from '@/hooks/useForm'
-import { CircularProgress } from '@mui/material'
 import Image from 'next/image'
+
+import { CircularProgress } from '@mui/material'
+
 import ViveoLogo from '../../assets/viveo-logo.svg'
+
+import { useForm } from '@/hooks/useForm'
+import Form from '@/components/Form'
+import CustomButton from '@/components/Button'
 
 const Login = () => {
   const [loading, setLoading] = useState(false)
@@ -18,7 +21,7 @@ const Login = () => {
   const router = useRouter()
 
   useEffect(() => {
-    // document.title = 'Viveo • Login'
+    document.title = 'Viveo • Login'
     const isLoggedIn = sessionStorage.getItem('isLoggedIn')
 
     if (isLoggedIn) {

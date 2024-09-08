@@ -1,43 +1,26 @@
 import React from 'react'
-import Input from './Input'
 import Link from 'next/link'
-import CustomButton from './Button'
+
 import { LinkedIn, Instagram, Facebook, YouTube } from '@mui/icons-material'
-import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
 
-interface FormField {
-  label: string
-  type?: string
-  placeholder?: string
-  name: string
-  value?: string
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  error?: string
-}
+import CustomButton from '../Button'
 
-interface FormProps {
-  fields: FormField[]
-  rememberPasswordButton?: boolean
-  submitButtonText: string
-  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
-  title?: string
-  redirectUrlOnSubmit: string
-  loading?: boolean
-  rememberMe?: boolean
-  onRememberMeChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-}
+import { FormProps } from './types'
+import { formSocialMediaIconStyle } from './styles'
+import Input from '../Input'
 
 const Form: React.FC<FormProps> = ({
   fields,
-  rememberPasswordButton = false,
   onSubmit,
   title,
   redirectUrlOnSubmit,
   submitButtonText,
+  onRememberMeChange,
   loading = false,
   rememberMe = false,
-  onRememberMeChange,
+  rememberPasswordButton = false,
 }) => {
   return (
     <form onSubmit={onSubmit} className="mt-4">
@@ -104,68 +87,28 @@ const Form: React.FC<FormProps> = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <LinkedIn
-            sx={{
-              fontSize: 25,
-              color: '#004D40',
-              '&:hover': {
-                color: '#00796B',
-                transform: 'scale(1.1)',
-                transition: 'transform 0.2s',
-              },
-            }}
-          />
+          <LinkedIn sx={formSocialMediaIconStyle} />
         </a>
         <a
           href="https://www.instagram.com/viveo.oficial/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Instagram
-            sx={{
-              fontSize: 25,
-              color: '#004D40',
-              '&:hover': {
-                color: '#00796B',
-                transform: 'scale(1.1)',
-                transition: 'transform 0.2s',
-              },
-            }}
-          />
+          <Instagram sx={formSocialMediaIconStyle} />
         </a>
         <a
           href="https://www.facebook.com/viveo.saude"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Facebook
-            sx={{
-              fontSize: 25,
-              color: '#004D40',
-              '&:hover': {
-                color: '#00796B',
-                transform: 'scale(1.1)',
-                transition: 'transform 0.2s',
-              },
-            }}
-          />
+          <Facebook sx={formSocialMediaIconStyle} />
         </a>
         <a
           href="https://www.youtube.com/c/ViveoSA"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <YouTube
-            sx={{
-              fontSize: 25,
-              color: '#004D40',
-              '&:hover': {
-                color: '#00796B',
-                transform: 'scale(1.1)',
-                transition: 'transform 0.2s',
-              },
-            }}
-          />
+          <YouTube sx={formSocialMediaIconStyle} />
         </a>
       </div>
     </form>

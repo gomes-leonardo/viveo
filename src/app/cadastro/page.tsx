@@ -1,9 +1,11 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
 import Form from '@/components/Form'
 import { useForm } from '@/hooks/useForm'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+
 import { Snackbar, Alert } from '@mui/material'
 
 const Register = () => {
@@ -20,9 +22,9 @@ const Register = () => {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  // useEffect(() => {
-  //   document.title = 'Viveo • Cada'
-  // }, [])
+  useEffect(() => {
+    document.title = 'Viveo • Cada'
+  }, [])
 
   const handleConfirmPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>,
