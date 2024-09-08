@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+Aqui está o seu README formatado com a sintaxe Markdown para o GitHub, incluindo a explicação sobre a segurança da rota /paciente utilizando sessionStorage e localStorage:
 
-First, run the development server:
+Painel de Prontuário - Viveo
+Este projeto é um painel de prontuário desenvolvido para a Viveo, com autenticação de login e gerenciamento de dados fictícios de pacientes. O objetivo desta aplicação é fornecer uma interface simples e funcional para visualização de informações de pacientes, como vacinas, medicações e consultas, integrando dados reais e fictícios.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Funcionalidades
+1. Login e Autenticação:
+O painel conta com uma tela de login, onde o usuário insere seu email e senha para acessar o sistema.
+Há um hook customizado que valida os campos do formulário, garantindo que:
+O email seja válido.
+A senha atenda aos requisitos.
+A confirmação de senha coincida.
+O formulário possui uma opção de "Lembrar Senha", que salva o estado de autenticação no localStorage. Quando o usuário acessa a aplicação posteriormente, ele é redirecionado automaticamente para o perfil.
+2. Redirecionamento Inteligente:
+Assim que o usuário faz login, ele é redirecionado para a página de perfil, onde pode visualizar os dados dos pacientes.
+Caso o usuário marque a opção "Lembrar Senha", sua sessão é mantida e, ao acessar a rota /, ele é redirecionado automaticamente para o painel de perfil.
+3. Tela de Perfil do Paciente:
+A tela de perfil exibe os dados dos pacientes, utilizando a API do RandomUser.
+Além dos dados reais (nome, email, localização, telefone), a aplicação também gera dados fictícios como:
+Vacinas (status de vacinação completo/incompleto para várias vacinas),
+Data da última consulta,
+Medicação atual.
+Estes dados fictícios são gerados dinamicamente com Math.random para simular um prontuário completo.
+4. Segurança da Rota /paciente:
+A rota /paciente é protegida e só pode ser acessada por usuários logados.
+A verificação do estado de login é feita usando tanto sessionStorage quanto localStorage. Se o usuário estiver logado com a opção "Lembrar Senha", o estado é mantido no localStorage e a sessão é persistida. Caso contrário, o estado é mantido no sessionStorage, que é encerrado ao fechar o navegador.
+Usuários não autenticados são redirecionados para a página de login se tentarem acessar diretamente a rota /paciente.
+Tecnologias Utilizadas
+Next.js: Framework utilizado para desenvolver a aplicação com foco em performance e experiência do usuário.
+React.js: Biblioteca para criação de interfaces dinâmicas e componentes reutilizáveis.
+Material-UI (MUI): Biblioteca de componentes UI para estilização e responsividade.
+Hooks Customizados: Implementação de hooks para validação de formulários e manipulação do estado da aplicação.
+RandomUser API: API externa para geração de dados fictícios de pacientes.

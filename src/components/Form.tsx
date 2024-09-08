@@ -3,6 +3,8 @@ import Input from './Input'
 import Link from 'next/link'
 import CustomButton from './Button'
 import { LinkedIn, Instagram, Facebook, YouTube } from '@mui/icons-material'
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
 interface FormField {
   label: string
@@ -16,22 +18,26 @@ interface FormField {
 
 interface FormProps {
   fields: FormField[]
-  showForgotPassword?: boolean
+  rememberPasswordButton?: boolean
   submitButtonText: string
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
   title?: string
   redirectUrl: string
   loading?: boolean
+  rememberMe?: boolean
+  onRememberMeChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Form: React.FC<FormProps> = ({
   fields,
-  showForgotPassword = false,
+  rememberPasswordButton = false,
   onSubmit,
   title,
   redirectUrl,
   submitButtonText,
   loading = false,
+  rememberMe = false,
+  onRememberMeChange,
 }) => {
   return (
     <form onSubmit={onSubmit} className="mt-4">
@@ -49,8 +55,32 @@ const Form: React.FC<FormProps> = ({
         </div>
       ))}
 
-      {showForgotPassword && (
-        <div className="flex justify-between items-center mb-4">
+      {rememberPasswordButton && (
+        <div className="flex justify-start items-center mb-4">
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={rememberMe}
+                onChange={onRememberMeChange}
+                sx={{
+                  '& .MuiSvgIcon-root': { fontSize: 22 },
+                  color: '#B0BEC5',
+                  transition: 'color 0.3s ease',
+                  '&.Mui-checked': {
+                    color: '#00796B',
+                    transition: 'color 0.3s ease',
+                  },
+                }}
+              />
+            }
+            label="Lembrar senha"
+            sx={{
+              color: '#37474F',
+              fontWeight: '500',
+              fontSize: '0.875rem',
+            }}
+          />
+
           <Link href={redirectUrl} legacyBehavior>
             <a href="#" className="text-sm text-secondary-default font-bold">
               {title}
@@ -64,7 +94,7 @@ const Form: React.FC<FormProps> = ({
           loading={loading}
           type="submit"
           title={submitButtonText}
-          className="w-full max-w-md p-3 text-white font-bold bg-gradient-to-r from-teal-400 to-green-400 hover:from-teal-500 hover:to-green-500 transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl "
+          className="w-full max-w-md p-3 text-white font-bold bg-gradient-to-r from-teal-400 to-green-400 hover:from-teal-500 hover:to-green-500 transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl"
         />
       </div>
 

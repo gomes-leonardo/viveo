@@ -18,6 +18,7 @@ interface InputProps {
   type?: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   error?: string
+  autocomplete?: string
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,6 +29,7 @@ const Input: React.FC<InputProps> = ({
   value,
   type,
   error,
+  autocomplete,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -38,6 +40,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="w-full">
       <TextField
+        autoComplete={autocomplete}
         name={name}
         label={label}
         value={value}
@@ -51,11 +54,12 @@ const Input: React.FC<InputProps> = ({
           endAdornment:
             name === 'email' ? (
               <InputAdornment position="end">
-                <EmailIcon fontSize="small" sx={{ verticalAlign: 'middle' }} />
+                <EmailIcon fontSize="small" />
               </InputAdornment>
             ) : name === 'password' || name === 'confirmPassword' ? (
               <InputAdornment position="end">
                 <IconButton
+                  sx={{ padding: 0, margin: 0 }}
                   aria-label="toggle password visibility"
                   onClick={handleTogglePasswordVisibility}
                   edge="end"

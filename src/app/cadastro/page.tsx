@@ -2,7 +2,7 @@
 
 import Form from '@/components/Form'
 import { useForm } from '@/hooks/useForm'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Snackbar, Alert } from '@mui/material'
 
@@ -19,6 +19,10 @@ const Register = () => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    document.title = 'Viveo • Cada'
+  }, [])
 
   const handleConfirmPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -48,7 +52,7 @@ const Register = () => {
         setTimeout(() => {
           setLoading(false)
           router.push('/login')
-        }, 2000)
+        }, 3000)
       } else {
         console.log('Formulário inválido')
       }
@@ -63,6 +67,7 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-200 p-4 md:p-8">
       <div className="bg-white rounded-lg shadow-lg flex flex-col  max-w-2xl px-6 py-10">
         <div className="w-350px flex flex-col items-center justify-center">
+          <div className="absolute top-6 sm:top-4 left-6 sm:left-4 text-lg sm:text-xl font-semibold text-teal-600"></div>
           <h2 className="text-2xl font-bold text-secondary-default text-center mb-4">
             Cadastre sua conta
           </h2>
@@ -97,7 +102,6 @@ const Register = () => {
               },
             ]}
             submitButtonText="Cadastrar-se"
-            showForgotPassword={false}
             onSubmit={handleSubmit}
             redirectUrl=""
             loading={loading}
