@@ -1,6 +1,4 @@
 
-Aqui está o seu README formatado com a sintaxe Markdown para o GitHub, incluindo a explicação sobre a segurança da rota /paciente utilizando sessionStorage e localStorage:
-
 Painel de Prontuário - Viveo
 Este projeto é um painel de prontuário desenvolvido para a Viveo, com autenticação de login e gerenciamento de dados fictícios de pacientes. O objetivo desta aplicação é fornecer uma interface simples e funcional para visualização de informações de pacientes, como vacinas, medicações e consultas, integrando dados reais e fictícios.
 
