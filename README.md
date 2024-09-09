@@ -44,11 +44,11 @@ Siga os passos abaixo para rodar a aplicação localmente:
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/painel-prontuario-viveo.git
+   git clone https://github.com/seu-usuario/viveo.git
 2. **Acesse o diretório do projeto:**
 
    ```bash
-   cd painel-prontuario-viveo
+   cd viveo
 3. **Instale as dependências:**
 
    ```bash
